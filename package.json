@@ -1,8 +1,16 @@
 {
   "name": "leading-ladies-of-common",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
+  "description": "Common types for use in Leading Ladies Of... apps",
+  "author": "William Ready <will@readytoflycoaching.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wready99/leading-ladies-of-common/"
+  },
   "types": "lib/index.d.ts",
+  "files": ["lib"],
   "dependencies": {
     "firebase": "10.7.1"
   },
@@ -15,6 +23,5 @@
   "scripts": {
     "build": "npm run lint && tsc",
     "lint": "eslint ."
-  },
-  "private": true
+  }
 }
