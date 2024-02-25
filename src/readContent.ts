@@ -6,4 +6,5 @@ export type ReadContent = {
   content_type: ContentType;
   id: string;
   read_on: Timestamp;
+  uid: string;
 };
