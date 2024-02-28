@@ -1,14 +1,32 @@
 import { GeoPoint, Timestamp } from "firebase/firestore";
 import { z } from "zod";
-import { userIdSchema } from "./users";
+import { userIdSchema, userProfileSchema } from "./users";
+
+// NOTE: not in alphabetical order due to deps
+export const companySchema = z.object({
+  address: z.string().trim(),
+  admin_uids: z.array(userIdSchema),
+  contacts: z.array(userProfileSchema),
+  description: z.string(),
+  geopoint: z.instanceof(GeoPoint),
+  logo: z.string().url(),
+  name: z.string().trim(),
+  objectID: z.string().trim(),
+  status: z.enum(["approved", "draft", "pending approval"]),
+  tag_line: z.string(),
+  url: z.string().url(),
+});
+
+export type Company = z.infer<typeof companySchema>;
 
 export const jobSchema = z.object({
-  company_id: z.string().trim(),
+  company: companySchema,
   description: z.string(),
   end_date: z.instanceof(Timestamp),
   geopoint: z.instanceof(GeoPoint),
   location: z.string().trim(),
   objectID: z.string().trim(),
+  posted_by: userProfileSchema,
   start_date: z.instanceof(Timestamp),
   status: z.enum([
     "active",
@@ -32,19 +50,3 @@ export const jobApplicationSchema = z.object({
 });
 
 export type JobApplication = z.infer<typeof jobApplicationSchema>;
-
-export const companySchema = z.object({
-  address: z.string().trim(),
-  admin_uids: userIdSchema,
-  contact_email: z.string().email(),
-  description: z.string(),
-  geopoint: z.instanceof(GeoPoint),
-  logo: z.string().url(),
-  name: z.string().trim(),
-  objectID: z.string().trim(),
-  status: z.enum(["approved", "draft", "pending approval"]),
-  tag_line: z.string(),
-  url: z.string().url(),
-});
-
-export type Company = z.infer<typeof companySchema>;
