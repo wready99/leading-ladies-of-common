@@ -17,3 +17,7 @@ export const userProfileSchema = z.object({
 });
 
 export type UserProfile = z.infer<typeof userIdSchema>;
+
+export function getUserTokenFromUid(uid: string) {
+  return uid.substring(uid.indexOf("|") + 1);
+}
