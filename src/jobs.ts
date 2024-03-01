@@ -19,6 +19,29 @@ export const companySchema = z.object({
 
 export type Company = z.infer<typeof companySchema>;
 
+export const editJobSchema = z.object({
+  company: z.string().startsWith("/companies/"),
+  description: z.string(),
+  end_date: z.instanceof(Timestamp),
+  geopoint: z.instanceof(GeoPoint),
+  location: z.string().trim(),
+  objectID: z.string().trim(),
+  posted_by: z.string().startsWith("/user_profiles/"),
+  start_date: z.instanceof(Timestamp),
+  status: z.enum([
+    "active",
+    "approved",
+    "draft",
+    "expired",
+    "pending approval",
+  ]),
+  tags: z.array(z.string().trim()),
+  title: z.string().trim(),
+  visible_by: z.array(z.string().trim()),
+});
+
+export type EditJob = z.infer<typeof editJobSchema>;
+
 export const jobSchema = z.object({
   company: companySchema,
   description: z.string(),
