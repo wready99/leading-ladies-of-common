@@ -5,8 +5,7 @@ export type Conversation = {
   last_content_id: string;
   last_message_on: Timestamp;
   started_on: Timestamp;
-  uid1: string;
-  uid2: string;
+  users: string[];
 };
 
 export type ConversationContent = {
