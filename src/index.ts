@@ -1,4 +1,5 @@
 export * from "./chat";
+export * from "./companies";
 export * from "./event";
 export * from "./jobs";
 export * from "./news";
