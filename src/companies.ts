@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { userIdSchema, userProfileSchema } from "./users";
 import { GeoPoint } from "firebase/firestore";
+import { visibleBySchema } from "./common";
 
 const shared = z.object({
   address: z.string().trim(),
@@ -13,7 +14,7 @@ const shared = z.object({
   status: z.enum(["approved", "draft", "pending approval"]),
   tag_line: z.string(),
   url: z.string().url(),
-  visible_by: z.array(z.string().trim()),
+  visible_by: visibleBySchema,
 });
 
 export const companySchema = shared.extend({

@@ -2,6 +2,7 @@ import { GeoPoint, Timestamp } from "firebase/firestore";
 import { z } from "zod";
 import { userProfileSchema } from "./users";
 import { companySchema } from "./companies";
+import { visibleBySchema } from "./common";
 
 const shared = z.object({
   description: z.string(),
@@ -19,7 +20,7 @@ const shared = z.object({
   ]),
   tags: z.array(z.string().trim()),
   title: z.string().trim(),
-  visible_by: z.array(z.string().trim()),
+  visible_by: visibleBySchema,
 });
 
 export const editJobSchema = shared.extend({

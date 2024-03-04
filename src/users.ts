@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { isMobilePhone } from "validator";
+import { visibleBySchema } from "./common";
 
 export const documentInfoSchema = z.object({
   name: z.string().trim(),
@@ -25,6 +26,7 @@ export const userProfileSchema = z.object({
   skills: z.array(z.string().trim()).optional(),
   tagline: z.string().trim().optional(),
   website: z.string().url().optional(),
+  visible_by: visibleBySchema,
 });
 
 export type UserProfile = z.infer<typeof userProfileSchema>;

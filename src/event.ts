@@ -1,4 +1,5 @@
 import { GeoPoint, Timestamp } from "firebase/firestore";
+import { VisibleBy } from "./common";
 
 export type Event = {
   active: boolean;
@@ -12,4 +13,5 @@ export type Event = {
   name: string;
   start_time: Timestamp;
   virtual_links?: string[];
+  visible_by: VisibleBy;
 };

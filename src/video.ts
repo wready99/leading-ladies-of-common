@@ -1,3 +1,5 @@
+import { VisibleBy } from "./common";
+
 export type Video = {
   category: string;
   embed: string;
@@ -6,4 +8,5 @@ export type Video = {
   thumbnail_uri: string;
   title: string;
   uri: string;
+  visible_by: VisibleBy;
 };
