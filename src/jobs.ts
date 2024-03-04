@@ -1,6 +1,6 @@
 import { GeoPoint, Timestamp } from "firebase/firestore";
 import { z } from "zod";
-import { userIdSchema, userProfileSchema } from "./users";
+import { userProfileSchema } from "./users";
 import { companySchema } from "./companies";
 
 const shared = z.object({
@@ -35,13 +35,3 @@ export const jobSchema = shared.extend({
 });
 
 export type Job = z.infer<typeof jobSchema>;
-
-export const jobApplicationSchema = z.object({
-  applicant_uid: userIdSchema,
-  applied_on: z.instanceof(Timestamp),
-  job_id: z.string().trim(),
-  objectID: z.string().trim(),
-  resume_url: z.string().url(),
-});
-
-export type JobApplication = z.infer<typeof jobApplicationSchema>;

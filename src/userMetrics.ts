@@ -2,7 +2,9 @@ import { Timestamp } from "firebase/firestore";
 
 export enum ContentType {
   CONVERSATION_CONTENT = "conversation_content",
+  COMPANIES = "companies",
   EVENTS = "events",
+  JOB_APPLICATIONS = "job_applications",
   JOBS = "jobs",
   NEWS = "news",
   USERS = "users",

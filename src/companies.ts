@@ -27,3 +27,12 @@ export const editCompanySchema = shared.extend({
 });
 
 export type EditCompany = z.infer<typeof editCompanySchema>;
+
+// export const isCompanyAdmin = z
+//   .function()
+//   .args(shared, z.string())
+//   .returns(z.boolean())
+//   .implement(
+//     (shared, uid) =>
+//       shared.admin_uids.find((adminUid) => uid == adminUid) !== undefined,
+//   );

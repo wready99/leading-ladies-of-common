@@ -1,6 +1,7 @@
 export * from "./chat";
 export * from "./companies";
 export * from "./event";
+export * from "./jobApplications";
 export * from "./jobs";
 export * from "./news";
 export * from "./notification";
