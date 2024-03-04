@@ -1,9 +1,14 @@
 import { Timestamp } from "firebase/firestore";
 
+export type LastMessageInfo = {
+  blurb: string;
+  content_id: string;
+  sent_on: Timestamp;
+};
+
 export type Conversation = {
   id: string;
-  last_content_id: string;
-  last_message_on: Timestamp;
+  last_message: LastMessageInfo;
   started_on: Timestamp;
   users: string[];
 };
