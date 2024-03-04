@@ -1,4 +1,7 @@
 import { Timestamp } from "firebase/firestore";
+import { VisibleBy } from "./common";
+
+export type ConversationType = "direct" | "channel" | "thread";
 
 export type LastMessageInfo = {
   blurb: string;
@@ -9,8 +12,11 @@ export type LastMessageInfo = {
 export type Conversation = {
   id: string;
   last_message: LastMessageInfo;
+  name: string;
   started_on: Timestamp;
+  type: ConversationType;
   users: string[];
+  visible_by: VisibleBy;
 };
 
 export type ConversationContent = {
@@ -20,4 +26,5 @@ export type ConversationContent = {
   id: string;
   read_on: Timestamp;
   sent_on: Timestamp;
+  visible_by: VisibleBy;
 };
