@@ -1,23 +1,35 @@
 import { Timestamp } from "firebase/firestore";
-import { VisibleBy } from "./common";
+import { z } from "zod";
 
-export type ConversationType = "direct" | "channel" | "thread";
+import { VisibleBy, visibleBySchema } from "./common";
+import { userIdSchema } from "./users";
 
-export type LastMessageInfo = {
-  blurb: string;
-  content_id: string;
-  sent_on: Timestamp;
-};
+export const conversationTypeSchema = z.enum(["direct", "channel", "thread"]);
 
-export type Conversation = {
-  id: string;
-  last_message: LastMessageInfo;
-  name: string;
-  started_on: Timestamp;
-  type: ConversationType;
-  users: string[];
-  visible_by: VisibleBy;
-};
+export type ConversationType = z.infer<typeof conversationTypeSchema>;
+
+export const editConversationSchema = z.object({
+  id: z.string().trim(),
+  name: z.string().trim(),
+  type: conversationTypeSchema,
+  users: z.array(userIdSchema),
+});
+
+export type EditConversation = z.infer<typeof editConversationSchema>;
+
+export const conversationSchema = editConversationSchema.extend({
+  last_message: z
+    .object({
+      blurb: z.string().trim(),
+      content_id: z.string().trim(),
+      sent_on: z.instanceof(Timestamp),
+    })
+    .optional(),
+  started_on: z.instanceof(Timestamp),
+  visible_by: visibleBySchema,
+});
+
+export type Conversation = z.infer<typeof conversationSchema>;
 
 export type ConversationContent = {
   content: string;
