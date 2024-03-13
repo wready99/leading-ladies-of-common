@@ -8,23 +8,36 @@ export const conversationTypeSchema = z.enum(["direct", "channel", "thread"]);
 
 export type ConversationType = z.infer<typeof conversationTypeSchema>;
 
-export const editConversationSchema = z.object({
+const shared = z.object({
   id: z.string().trim(),
+  category: z.string().trim().optional(),
   name: z.string().trim(),
   type: conversationTypeSchema,
   users: z.array(userIdSchema),
 });
 
+export const editConversationSchema = shared.refine((schema) => {
+  if (schema.type === "channel") {
+    return schema.category && schema.name;
+  } else if (schema.type === "direct") {
+    return !schema.category && schema.name === "";
+  } else {
+    return false;
+  }
+}, "Must choose category and name for channels");
+
 export type EditConversation = z.infer<typeof editConversationSchema>;
 
-export const conversationSchema = editConversationSchema.extend({
-  last_message: z
-    .object({
-      blurb: z.string().trim(),
-      content_id: z.string().trim(),
-      sent_on: z.instanceof(Timestamp),
-    })
-    .optional(),
+export const lastMessageInfoSchema = z.object({
+  blurb: z.string().trim(),
+  content_id: z.string().trim(),
+  sent_on: z.instanceof(Timestamp),
+});
+
+export type LastMessageInfo = z.infer<typeof lastMessageInfoSchema>;
+
+export const conversationSchema = shared.extend({
+  last_message: lastMessageInfoSchema.optional(),
   started_on: z.instanceof(Timestamp),
   visible_by: visibleBySchema,
 });
