@@ -4,7 +4,7 @@ import { visibleBySchema } from "./common";
 
 export const eventSchema = z.object({
   description: z.string().trim(),
-  end_date: z.instanceof(Timestamp).optional(),
+  end_date: z.instanceof(Timestamp),
   image_url: z.string().url(),
   location: z.string().trim(),
   name: z.string().trim(),
