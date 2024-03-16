@@ -1,25 +1,36 @@
-import { GeoPoint, Timestamp } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 import { z } from "zod";
-import { userProfileSchema } from "./users";
+
+import { statusSchema, visibleBySchema } from "./common";
 import { companySchema } from "./companies";
-import { visibleBySchema } from "./common";
+import { userProfileSchema } from "./users";
+
+export const jobTypeSchema = z.enum([
+  "Full-Time",
+  "Part-Time",
+  "Contract",
+  "Internship",
+]);
+
+export type JobType = z.infer<typeof jobTypeSchema>;
+
+export const salaryInfoSchema = z.object({
+  hourly_range: z.string().trim(),
+  yearly_range: z.string().trim(),
+});
+
+export type SalaryInfo = z.infer<typeof salaryInfoSchema>;
 
 const shared = z.object({
   description: z.string(),
-  end_date: z.instanceof(Timestamp),
-  geopoint: z.instanceof(GeoPoint),
+  job_type: jobTypeSchema,
   location: z.string().trim(),
   objectID: z.string().trim(),
-  start_date: z.instanceof(Timestamp),
-  status: z.enum([
-    "active",
-    "approved",
-    "draft",
-    "expired",
-    "pending approval",
-  ]),
+  post_end_date: z.instanceof(Timestamp),
+  role: z.string().trim(),
+  salary_info: salaryInfoSchema.optional(),
+  status: statusSchema,
   tags: z.array(z.string().trim()),
-  title: z.string().trim(),
   visible_by: visibleBySchema,
 });
 

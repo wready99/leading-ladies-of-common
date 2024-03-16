@@ -1,12 +1,14 @@
 import { z } from "zod";
-
-import { documentInfoSchema, userIdSchema, userProfileSchema } from "./users";
 import { Timestamp } from "firebase/firestore";
+
 import { jobSchema } from "./jobs";
 import { visibleBySchema } from "./common";
+import { documentInfoSchema, userIdSchema, userProfileSchema } from "./users";
 
 const shared = z.object({
+  additional_info: z.string().optional(),
   applied_on: z.instanceof(Timestamp),
+  cover_letter: documentInfoSchema.optional(),
   objectID: z.string().trim(),
   resume: documentInfoSchema,
   visible_by: visibleBySchema,

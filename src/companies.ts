@@ -1,19 +1,19 @@
 import { z } from "zod";
+
+import { statusSchema, visibleBySchema } from "./common";
 import { userIdSchema, userProfileSchema } from "./users";
-import { GeoPoint } from "firebase/firestore";
-import { visibleBySchema } from "./common";
 
 const shared = z.object({
-  address: z.string().trim(),
   admin_uids: z.array(userIdSchema),
-  description: z.string(),
-  geopoint: z.instanceof(GeoPoint),
+  description: z.string().trim().optional(),
+  industry: z.string().trim(),
+  location: z.string().trim(),
   logo: z.string().url(),
   name: z.string().trim(),
   objectID: z.string().trim(),
-  status: z.enum(["approved", "draft", "pending approval"]),
-  tag_line: z.string(),
-  url: z.string().url(),
+  size: z.string().trim().optional(),
+  status: statusSchema,
+  url: z.string().url().optional(),
   visible_by: visibleBySchema,
 });
 
@@ -28,12 +28,3 @@ export const editCompanySchema = shared.extend({
 });
 
 export type EditCompany = z.infer<typeof editCompanySchema>;
-
-// export const isCompanyAdmin = z
-//   .function()
-//   .args(shared, z.string())
-//   .returns(z.boolean())
-//   .implement(
-//     (shared, uid) =>
-//       shared.admin_uids.find((adminUid) => uid == adminUid) !== undefined,
-//   );
