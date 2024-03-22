@@ -16,15 +16,19 @@ const shared = z.object({
   users: z.array(userIdSchema),
 });
 
-export const editConversationSchema = shared.refine((schema) => {
-  if (schema.type === "channel") {
-    return schema.category && schema.name;
-  } else if (schema.type === "direct") {
-    return !schema.category && schema.name === "";
-  } else {
-    return false;
-  }
-}, "Must choose category and name for channels");
+export const editConversationSchema = shared
+  .extend({
+    message: z.string().trim(),
+  })
+  .refine((schema) => {
+    if (schema.type === "channel") {
+      return schema.category && schema.name;
+    } else if (schema.type === "direct") {
+      return !schema.category && schema.name === "" && schema.users.length > 0;
+    } else {
+      return false;
+    }
+  }, "Must choose category and name for channels");
 
 export type EditConversation = z.infer<typeof editConversationSchema>;
 

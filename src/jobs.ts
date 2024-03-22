@@ -15,8 +15,8 @@ export const jobTypeSchema = z.enum([
 export type JobType = z.infer<typeof jobTypeSchema>;
 
 export const salaryInfoSchema = z.object({
-  hourly_range: z.string().trim(),
-  yearly_range: z.string().trim(),
+  hourly_range: z.string().trim().optional(),
+  yearly_range: z.string().trim().optional(),
 });
 
 export type SalaryInfo = z.infer<typeof salaryInfoSchema>;

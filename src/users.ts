@@ -20,14 +20,24 @@ export const additionalInfoSchema = z.object({
 
 export type AdditionalInfo = z.infer<typeof additionalInfoSchema>;
 
-export const editUserProfileSchema = z.object({
+export const minimalUserSchema = z.object({
+  name: z.string().trim().optional(),
+  objectID: z.string().trim(),
+});
+
+export type MinimalUser = z.infer<typeof minimalUserSchema>;
+
+export const minimalUserProfileSchema = minimalUserSchema.extend({
+  picture: z.string().url(),
+});
+
+export type MinimalUserProfile = z.infer<typeof minimalUserProfileSchema>;
+
+export const editUserProfileSchema = minimalUserProfileSchema.extend({
   additional_info: additionalInfoSchema.optional(),
   current_role: z.string().trim().optional(),
   employer: z.string().trim().optional(),
   location: z.string().trim().optional(),
-  name: z.string().trim().optional(),
-  objectID: z.string().trim(),
-  picture: z.string().url(),
 });
 
 export type EditUserProfile = z.infer<typeof editUserProfileSchema>;
