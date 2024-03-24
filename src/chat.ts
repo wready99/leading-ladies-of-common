@@ -18,7 +18,7 @@ const shared = z.object({
 
 export const editConversationSchema = shared
   .extend({
-    message: z.string().trim(),
+    message: z.string().trim().min(1, "Message cannot be blank"),
   })
   .refine((schema) => {
     if (schema.type === "channel") {

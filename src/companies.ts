@@ -16,7 +16,7 @@ const shared = z.object({
   sponsor: z.boolean().default(false),
   sponsor_level: z.string().default(""),
   status: statusSchema,
-  url: z.string().url().optional(),
+  url: z.string().url(),
   visible_by: visibleBySchema,
 });
 
