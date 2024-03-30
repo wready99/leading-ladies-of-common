@@ -2,6 +2,7 @@ export * from "./chat";
 export * from "./common";
 export * from "./companies";
 export * from "./event";
+export * from "./faq";
 export * from "./jobApplications";
 export * from "./jobs";
 export * from "./news";

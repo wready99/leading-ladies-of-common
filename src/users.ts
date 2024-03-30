@@ -35,6 +35,7 @@ export type MinimalUserProfile = z.infer<typeof minimalUserProfileSchema>;
 
 export const editUserProfileSchema = minimalUserProfileSchema.extend({
   additional_info: additionalInfoSchema.optional(),
+  bio: z.string().trim().optional(),
   current_role: z.string().trim().optional(),
   employer: z.string().trim().optional(),
   location: z.string().trim().optional(),
