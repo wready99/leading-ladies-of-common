@@ -44,6 +44,7 @@ export const editUserProfileSchema = minimalUserProfileSchema.extend({
 export type EditUserProfile = z.infer<typeof editUserProfileSchema>;
 
 export const userProfileSchema = editUserProfileSchema.extend({
+  member: z.boolean(),
   visible_by: visibleBySchema,
 });
 
