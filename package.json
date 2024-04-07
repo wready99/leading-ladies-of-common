@@ -1,6 +1,6 @@
 {
   "name": "leading-ladies-of-common",
-  "version": "1.0.66",
+  "version": "1.0.68",
   "main": "lib/index.js",
   "description": "Common types for use in Leading Ladies Of... apps",
   "author": "William Ready <will@readytoflycoaching.com>",

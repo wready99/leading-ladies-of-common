@@ -17,3 +17,11 @@ export const getRolesVisibleBy = (roles: string[]) => {
 export const getRoleVisibleBy = (role: string) => {
   return `roles/${role}`;
 };
+
+export const isMember = (roles: string[] | undefined) => {
+  if (roles === undefined) {
+    return false;
+  }
+
+  return roles.some((role) => Role.parse(role));
+};
